@@ -1,7 +1,7 @@
 ---
 - name: Apply Security Patches
   hosts: all
-  become: yes
+  become: true
   tasks:
 
     - name: Update and Apply Security Patches on RedHat Linux
