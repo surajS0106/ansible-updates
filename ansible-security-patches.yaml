@@ -1,11 +1,15 @@
 ---
 - name: Apply Security Patches
   hosts: all
+  become: true
+  become_method: sudo
+  become_user: root
   tasks:
     - name: Update and Apply Security Patches on RedHat Linux
       yum:
         name: '*'
         state: latest
+        security: yes
       when: ansible_os_family == 'RedHat'
 
     - name: Update and Apply Security Patches on Ubuntu Linux
@@ -18,4 +22,3 @@
     - name: Update and Apply Security Patches on SUSE Linux
       command: zypper update -y
       when: ansible_os_family == 'Suse'
-      
