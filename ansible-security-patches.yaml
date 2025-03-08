@@ -1,0 +1,23 @@
+---
+- name: Apply Security Patches
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Update and Apply Security Patches on RedHat Linux
+      yum:
+        name: '*'
+        state: latest
+      when: ansible_os_family == 'RedHat'
+
+    - name: Update and Apply Security Patches on Ubuntu Linux
+      apt:
+        upgrade: dist
+        update_cache: yes
+        autoremove: yes
+      when: ansible_os_family == 'Debian'
+
+    - name: Update and Apply Security Patches on SUSE Linux
+      command: zypper update -y
+      when: ansible_os_family == 'Suse'
+      
